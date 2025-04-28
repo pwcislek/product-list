@@ -1,0 +1,135 @@
+.container {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  position: relative;
+  overflow-x: auto;
+}
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  opacity: 0.5;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  height: 40px;
+  padding-inline: 10px;
+  color: #616875;
+  &:has(.sorting):hover {
+    cursor: pointer;
+  }
+}
+
+.sticky {
+  position: sticky;
+  left: 0;
+  background-color: #fff;
+}
+
+.stickyRight {
+  position: sticky;
+  right: 0;
+  background-color: #fff;
+}
+
+.sorting {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.table td {
+  padding-inline: 10px;
+  padding-block: 8px;
+  img {
+    vertical-align: middle;
+  }
+}
+
+.table tr {
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  .center {
+    text-align: center;
+  }
+  .right {
+    text-align: right;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.danger {
+  color: #dc2626;
+}
+
+@media (max-width: 500px) {
+  tr,
+  th {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  td::before,
+  th::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #616875;
+    font-size: 14px;
+  }
+  td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  th {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  th:not(.sticky) {
+    display: none;
+  }
+  table .name {
+    order: -1;
+    background-color: #f9fafb;
+    font-weight: 500;
+    padding-block: 16px;
+  }
+  .buttons {
+    justify-content: flex-end;
+  }
+}
