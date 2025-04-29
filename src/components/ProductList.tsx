@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Product } from '../../types/product';
 import { getPokeData } from '../../lib/mock-data';
 import ProductTable from './ProductTable';
@@ -43,26 +43,28 @@ export default function ProductList() {
     setFilters(newFilters);
   };
 
-  const filteredProducts = products
-    .filter((product) => {
-      const nameMatch = product.name.toLowerCase().includes(filters.name.toLowerCase());
-      const priceMatch =
-        product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
-      const availabilityMatch =
-        product.availability >= filters.availabilityRange[0] &&
-        product.availability <= filters.availabilityRange[1];
+  const filteredProducts = useMemo(() => {
+    return products
+      .filter((product) => {
+        const nameMatch = product.name.toLowerCase().includes(filters.name.toLowerCase());
+        const priceMatch =
+          product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
+        const availabilityMatch =
+          product.availability >= filters.availabilityRange[0] &&
+          product.availability <= filters.availabilityRange[1];
 
-      return nameMatch && priceMatch && availabilityMatch;
-    })
-    .sort((a, b) => {
-      if (!sortConfig.key) {
-        return 0;
-      }
-      if (sortConfig.direction === 'ascending') {
-        return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
-      }
-      return b[sortConfig.key] > a[sortConfig.key] ? 1 : -1;
-    });
+        return nameMatch && priceMatch && availabilityMatch;
+      })
+      .sort((a, b) => {
+        if (!sortConfig.key) {
+          return 0;
+        }
+        if (sortConfig.direction === 'ascending') {
+          return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
+        }
+        return b[sortConfig.key] > a[sortConfig.key] ? 1 : -1;
+      });
+  }, [products, filters, sortConfig]);
 
   const handleDelete = async (id: number) => {
     setIsLoading(true);
