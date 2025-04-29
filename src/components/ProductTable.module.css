@@ -120,7 +120,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  th:not(.sticky) {
+  th:not(.sticky):not(:has(.sorting)) {
     display: none;
   }
   table .name {

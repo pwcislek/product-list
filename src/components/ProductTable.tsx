@@ -63,7 +63,7 @@ export default function ProductTable({
                   />
                 </div>
               </th>
-              <th onClick={() => onSort('id')}>
+              <th data-label="Sortuj" onClick={() => onSort('id')}>
                 <div className={styles.sorting}>
                   <span>Id</span> {renderSortIcon('id')}
                 </div>
